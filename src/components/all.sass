@@ -14,7 +14,7 @@ $navbar-item-color: #999
 $navbar-item-active-color: $body-color
 $navbar-item-hover-color: $body-color
 $navbar-burger-color: black
-$navbar-background-color: transparent
+$navbar-background-color: rgba(255, 255, 255, 0)
 
 .content .taglist
   list-style: none
@@ -142,23 +142,51 @@ $menu-list-border-left: 1px solid $kaldi-red-invert
     max-width: 70%;
     margin: 0 0 1em;
 
+.navbar
+  transition: all 400ms ease
+
 .navbar .navbar-menu
   box-shadow:none
   justify-content: center
 
-.navbar-menu.is-active
-  background-color: white
-  margin: 0 2.5% 0 2.5%
-  -webkit-box-shadow: 0px 0px 15px 0px rgba(68, 68, 68, 0.15)
-  box-shadow: 0px 0px 15px 0px rgba(68, 68, 68, 0.15)
-  padding: 0
-
 .navbar-item
+  background-color: transparent !important
   font-family: 'Helvetica Neue', 'Arial', 'sans-serif', sans-serif;
   font-size: 11px
   text-transform: uppercase
   letter-spacing: 2px
   padding: 30px 20px
+  transition: all .2s linear
 
-.navbar-menu.is-active > .navbar-item
-  padding: 15px
+@include from($desktop)
+  .navbar.after-scroll
+    background-color: rgba(255, 255, 255, 1)
+
+.navbar-item.after-scroll
+  padding: 16px 20px 19px 20px
+
+@include until($desktop)
+  .navbar-item
+    padding: 15px
+
+  .navbar-brand
+    background-color: rgba(255, 255, 255, 0)
+    transition: all 400ms ease
+  
+  .navbar-brand.after-scroll
+    background-color: rgba(255, 255, 255, 1)
+
+  .navbar-menu
+    display: block
+    background-color: white
+    opacity: 0
+    margin: 0 2.5% 0 2.5%
+    padding: 0
+    -webkit-box-shadow: 0px 0px 15px 0px rgba(68, 68, 68, 0.15)
+    box-shadow: 0px 0px 15px 0px rgba(68, 68, 68, 0.15)
+    transition: all 400ms ease
+    pointer-events: none
+
+  .navbar-menu.is-active
+    opacity: 1
+    pointer-events: auto

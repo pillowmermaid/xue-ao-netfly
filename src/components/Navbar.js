@@ -32,15 +32,31 @@ const Navbar = class extends React.Component {
     )
   }
 
+  componentDidMount() {
+    window.addEventListener('scroll', this.handleScroll);
+  }
+
+  componentWillUnmount() {
+    window.removeEventListener('scroll', this.handleScroll);
+  }
+
+  handleScroll = () => {
+    let navScrollClass = ''
+    if (window.scrollY > 0) {
+      navScrollClass = 'after-scroll'
+    }
+    this.setState({ navScrollClass})
+  }
+
   render() {
     return (
       <nav
-        className="navbar is-transparent is-fixed-top"
+        className={`navbar is-fixed-top ${this.state.navScrollClass}`}
         role="navigation"
         aria-label="main-navigation"
       >
         <div className="container">
-          <div className="navbar-brand">
+          <div className={`navbar-brand ${this.state.navScrollClass}`}>
             {/* Hamburger menu */}
             <div
               className={`navbar-burger burger ${this.state.navBarActiveClass}`}
@@ -56,10 +72,10 @@ const Navbar = class extends React.Component {
             id="navMenu"
             className={`navbar-menu ${this.state.navBarActiveClass}`}
           >
-            <Link className="navbar-item" activeClassName="is-active" to="/">
+            <Link className={`navbar-item ${this.state.navScrollClass}`} activeClassName="is-active" to="/">
               Portfolio
             </Link>
-            <Link className="navbar-item" activeClassName="is-active" to="/about">
+            <Link className={`navbar-item ${this.state.navScrollClass}`} activeClassName="is-active" to="/about">
               About Me
             </Link>
           </div>
